@@ -5,6 +5,11 @@ project(gazebo_naoqi_control)
 # Tell CMake where to find "FindNAOqiSIM.cmake"
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+
+#my stuff
+add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -w")
+
 # Tell Program where to find NAOqi/NAOqiSIM bin
 add_definitions(-DNAOQI_SDK="$ENV{AL_DIR}")
 add_definitions(-DNAOQI_SIM_SDK="$ENV{AL_SIM_DIR}")
