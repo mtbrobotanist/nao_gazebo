@@ -239,7 +239,7 @@ void GazeboNaoqiControlPlugin::initSensors()
   std::vector<const Sim::CameraSensor*> camera_sensors = naoqi_model_->cameraSensors();
   for(int i=0;i<camera_sensors.size();i++)
   {
-    sensors::CameraSensorPtr cam = (boost::dynamic_pointer_cast<sensors::CameraSensor>(sensors::SensorManager::Instance()->GetSensor(camera_sensors[i]->name())));
+    sensors::CameraSensorPtr cam = (std::dynamic_pointer_cast<sensors::CameraSensor>(sensors::SensorManager::Instance()->GetSensor(camera_sensors[i]->name())));
 
     if(cam)
     {
@@ -266,7 +266,7 @@ void GazeboNaoqiControlPlugin::initSensors()
   std::vector<const Sim::InertialSensor*> inertial_sensors = naoqi_model_->inertialSensors();
   if(inertial_sensors.size()>=1)
   {
-    sensors::ImuSensorPtr imu = (boost::dynamic_pointer_cast<sensors::ImuSensor>(sensors::SensorManager::Instance()->GetSensor("imu")));
+    sensors::ImuSensorPtr imu = (std::dynamic_pointer_cast<sensors::ImuSensor>(sensors::SensorManager::Instance()->GetSensor("imu")));
 
     if(imu)
     {
@@ -281,7 +281,7 @@ void GazeboNaoqiControlPlugin::initSensors()
   std::vector<const Sim::FSRSensor*> fsr_sensors = naoqi_model_->fsrSensors();
   for(int i=0;i<fsr_sensors.size();i++)
   {
-    sensors::ContactSensorPtr fsr = (boost::dynamic_pointer_cast<sensors::ContactSensor>(sensors::SensorManager::Instance()->GetSensor(fsr_sensors[i]->name())));
+    sensors::ContactSensorPtr fsr = (std::dynamic_pointer_cast<sensors::ContactSensor>(sensors::SensorManager::Instance()->GetSensor(fsr_sensors[i]->name())));
 
     if(fsr)
     {
@@ -342,7 +342,7 @@ void GazeboNaoqiControlPlugin::initSensors()
   std::vector<const Sim::SonarSensor*> sonar_sensors = naoqi_model_->sonarSensors();
   for(int i=0;i<sonar_sensors.size();i++)
   {
-    sensors::RaySensorPtr sonar = (boost::dynamic_pointer_cast<sensors::RaySensor>(sensors::SensorManager::Instance()->GetSensor(sonar_sensors[i]->name())));
+    sensors::RaySensorPtr sonar = (std::dynamic_pointer_cast<sensors::RaySensor>(sensors::SensorManager::Instance()->GetSensor(sonar_sensors[i]->name())));
     if(sonar)
     {
       if(sonar_sensors[i]->name() == "Sonar/Left")
@@ -393,9 +393,9 @@ void GazeboNaoqiControlPlugin::onImuUpdate(sensors::ImuSensorPtr _sensor)
 {
   //Update IMU
   // Get IMU data from Gazebo
-  math::Vector3 gyro = gazebo_imu_->GetAngularVelocity();
-  math::Vector3 acc = gazebo_imu_->GetLinearAcceleration();
-  math::Quaternion orient = gazebo_imu_->GetOrientation();
+  math::Vector3 gyro = gazebo_imu_->AngularVelocity();
+  math::Vector3 acc = gazebo_imu_->LinearAcceleration();
+  math::Quaternion orient = gazebo_imu_->Orientation();
 
   std::vector<float> vals;
   // AngleX, AngleY, [AngleZ - not in V40], AccX, AccY, AccZ, GyroX, GyroY, [GyroZ - not in V40]
